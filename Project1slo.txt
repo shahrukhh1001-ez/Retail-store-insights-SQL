@@ -1,0 +1,318 @@
+CREATE DATABASE RetailStoreDB;
+
+USE RetailStoreDB;
+
+Create Table store_sales
+(
+sale_id INT PRIMARY KEY AUTO_INCREMENT,
+order_date DATE,
+customer_name VARCHAR(50),
+gender VARCHAR(10),
+age INT,
+city VARCHAR(40),
+state VARCHAR(40),
+product_name VARCHAR(60),
+category VARCHAR(40),
+quantity INT,
+unit_price DECIMAL(10,2),
+discount DECIMAL(10,2),
+total_amount DECIMAL(10,2),
+payment_mode VARCHAR(20),
+salesperson VARCHAR(50)
+);
+
+INSERT INTO store_sales
+(order_date,customer_name,gender,age,city,state,product_name,category,quantity,unit_price,discount,total_amount,payment_mode,salesperson)
+
+VALUES
+
+('2026-01-01','Rahul','Male',24,'Delhi','Delhi','Laptop','Electronics',1,55000,5000,50000,'Credit Card','Amit'),
+
+('2026-01-02','Priya','Female',29,'Delhi','Delhi','Mobile','Electronics',2,18000,1000,35000,'UPI','Rohit'),
+
+('2026-01-03','Ankit','Male',32,'Noida','UP','Chair','Furniture',4,2500,500,9500,'Cash','Neha'),
+
+('2026-01-05','Sneha','Female',28,'Mumbai','Maharashtra','Sofa','Furniture',1,30000,2000,28000,'Debit Card','Amit'),
+
+('2026-01-06','Rohan','Male',35,'Pune','Maharashtra','Television','Electronics',1,45000,3000,42000,'Credit Card','Neha'),
+
+('2026-01-08','Meena','Female',41,'Jaipur','Rajasthan','Dining Table','Furniture',1,25000,1500,23500,'UPI','Rahul'),
+
+('2026-01-10','Amit','Male',30,'Delhi','Delhi','Refrigerator','Electronics',1,42000,2000,40000,'Credit Card','Neha'),
+
+('2026-01-12','Pooja','Female',27,'Lucknow','UP','Washing Machine','Electronics',1,28000,1000,27000,'Cash','Rohit'),
+
+('2026-01-14','Karan','Male',26,'Chandigarh','Punjab','Office Chair','Furniture',2,4500,500,8500,'UPI','Rahul'),
+
+('2026-01-15','Komal','Female',31,'Delhi','Delhi','Microwave','Electronics',1,15000,500,14500,'Debit Card','Amit'),
+
+('2026-01-18','Sahil','Male',36,'Jaipur','Rajasthan','Bed','Furniture',1,38000,3000,35000,'Cash','Neha'),
+
+('2026-01-19','Ritika','Female',25,'Noida','UP','Laptop','Electronics',1,60000,4000,56000,'Credit Card','Rahul'),
+
+('2026-01-21','Deepak','Male',38,'Mumbai','Maharashtra','Air Conditioner','Electronics',1,52000,3000,49000,'UPI','Amit'),
+
+('2026-01-22','Anjali','Female',34,'Pune','Maharashtra','Wardrobe','Furniture',1,32000,2000,30000,'Cash','Neha'),
+
+('2026-01-23','Manoj','Male',42,'Delhi','Delhi','Mobile','Electronics',3,16000,2000,46000,'UPI','Rohit'),
+
+('2026-01-25','Neha','Female',29,'Lucknow','UP','Study Table','Furniture',2,7000,1000,13000,'Debit Card','Rahul'),
+
+('2026-01-26','Tarun','Male',40,'Delhi','Delhi','Television','Electronics',1,47000,2000,45000,'Cash','Amit'),
+
+('2026-01-27','Shweta','Female',33,'Mumbai','Maharashtra','Sofa','Furniture',1,35000,3000,32000,'Credit Card','Neha'),
+
+('2026-01-29','Mohit','Male',37,'Jaipur','Rajasthan','Laptop','Electronics',1,62000,5000,57000,'UPI','Rahul'),
+
+('2026-01-30','Nisha','Female',26,'Delhi','Delhi','Mixer Grinder','Home Appliance',2,4500,500,8500,'Cash','Rohit');
+ Display all records.
+
+Select *
+from store_sales;
+
+Show customer name, city and product purchased.
+
+Select Customer_name,city,product_name
+from store_sales;
+
+Find all customers from Delhi.
+
+Select * from store_sales
+where city = 'Delhi';
+
+Display all Electronics products.
+
+Select * from store_sales
+where Category = 'Electronics';
+
+Find sales greater than ₹30,000.
+
+Select * from store_sales
+where total_amount > 30000;
+
+Show customers aged above 30 years.
+
+Select * from store_sales
+where age> 30;
+
+Sort records by highest sale amount.
+
+Select * from store_sales
+order by total_amount desc;
+
+Display the first 5 records.
+
+Select * from store_sales
+limit 5;
+
+Find customers whose names start with 'R'.
+
+Select * from store_sales
+where Customer_name like "R%";
+
+Display all unique cities.
+
+Select distinct city
+from Store_sales;
+
+Calculate total sales revenue.
+
+Select sum(total_amount)
+from store_sales;
+
+Calculate average sales amount.
+
+Select avg(total_amount)
+from store_sales;
+
+Find the maximum sale amount.
+
+select max(total_amount)
+from store_sales;
+
+Find the minimum sale amount.
+
+select min(total_amount)
+from store_sales;
+
+Count total orders.
+
+select count(quantity)
+from store_sales;
+
+Count total orders.
+
+select city,sum(total_amount)
+from store_sales
+group by city;
+
+Display city-wise total sales.
+
+select city,sum(total_amount)
+from store_sales
+group by city;
+
+Display category-wise revenue.
+
+select category,sum(total_amount)
+from store_sales
+group by category;
+
+Display salesperson-wise revenue.
+
+select salesperson,sum(total_amount)
+from store_sales
+group by Salesperson;
+
+Count orders by payment mode.
+
+select payment_mode,count(Quantity)
+from store_sales
+group by payment_mode;
+
+Find customers who have placed more than one order.
+
+select *
+from store_sales
+where quantity > 1;
+
+
+
+21.Find the city with the highest sales.
+
+
+Select city, Sum(total_amount) AS total_sales
+from Store_sales
+Group by city
+order by  total_sales desc
+limit 1;
+
+
+
+Find the category generating the highest revenue.
+
+Select Category, sum(total_amount) as highest_revenue
+from store_sales
+group by category
+order by highest_revenue desc
+limit 1;
+
+
+
+Display monthly sales revenue.
+
+
+Select sum(total_amount) as monthly_revenue,
+year(Order_date) AS year,
+month(order_date) AS month
+from store_sales
+group by year(order_date),month(order_date)
+order by month;
+
+
+
+Find the top 5 highest sales transactions.
+
+Select *
+from store_sales
+order by total_amount desc
+limit 5;
+
+
+
+Display product-wise quantity sold.
+
+
+select Product_name,sum(quantity)
+from store_sales
+group by product_name;
+
+
+
+Calculate average sales by city.
+
+select city,avg(total_amount)
+from store_sales
+group by city;
+
+
+
+Show gross amount before discount for every order.
+
+Select sale_id,quantity * unit_price As Gross_revenue
+from store_sales;
+
+
+
+List customers who paid using UPI.
+
+Select *
+from store_sales
+where Payment_mode = 'UPI';
+
+
+
+Find the most popular payment mode.
+
+Select payment_mode,count(payment_mode) as payment_count
+from store_sales
+group by payment_mode
+order by payment_count desc
+limit 1;
+
+
+
+Display all Furniture products costing more than ₹20,000.
+
+select *
+from store_sales
+where category = 'Furniture' AND unit_price > 20000;
+
+
+
+Find customers between ages 25 and 35.
+
+Select *
+from store_sales
+where age between 25 and 35;
+
+
+
+
+Count male and female customers.
+
+
+Select gender,count(gender) as cutomer_count
+from store_sales
+group by gender;
+
+
+
+Display state-wise revenue.
+
+select state,sum(unit_price) as revenue
+from store_sales
+group by state;
+
+
+
+Find the salesperson with the maximum revenue.
+
+select salesperson, max(total_amount) as saleshero
+from store_sales
+group by salesperson
+order by saleshero desc
+limit 1;
+
+
+
+35.Create a business KPI report showing:
+1-Total Orders----------20
+2-Total Revenue---------649500.00
+3-Average Order Value---30925.00
+4-Highest Sale----------57000.00
+5-Lowest Sale-----------8500.00
+
+
+
+
